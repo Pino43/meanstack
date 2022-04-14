@@ -1,7 +1,16 @@
 var express = require('express'); // 설치한 express module을 불러와서 변수(express)에 담습니다.
 var app = express(); //express를 실행하여 app object를 초기화 합니다.
 
-app.use(express.static(__dirname + '/public')); // 1
+app.set('view engine','ejs');
+app.use(express.static(__dirname + '/public')); 
+
+app.get('/hello', function(req,res){ 
+  res.render('hello', {name:req.query.nameQuery});
+});
+
+app.get('/hello/:nameParam', function(req,res){ 
+  res.render('hello', {name:req.params.nameParam});
+});
 
 var port = 3000; // 사용할 포트 번호를 port 변수에 넣습니다. 
 app.listen(port, function(){ // port변수를 이용하여 3000번 포트에 node.js 서버를 연결합니다.
